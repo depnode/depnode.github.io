@@ -1,8 +1,77 @@
 <!doctype html>
 <html>
     <head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     </head>
     <body>
-        Hello World
+	<div id="app">
+        <nav>
+            <ul>
+                <li><router-link to="/home"><div @click="changeView('1')">HOME</div></router-link></li>
+                <li><router-link to="/about"><div @click="changeView('2')">ABOUT</div></router-link></li>
+                <li><router-link to="/project"><div @click="changeView('3')">PROJECT</div></router-link></li>
+                <li><router-link to="/knowledge"><div @click="changeView('4')">KNOWLEDGE</div></router-link></li>
+            </ul>
+        </nav>
+        
+        <div id="content">
+            <router-view></router-view>
+            <div v-if="show == '1'">
+                <ul id="profile">
+                    <li>이름 : 박성진 </li>
+                    <li>나이 : 27세 ( 1991년생 ) </li>
+                    <li>핸드폰 : 010 - **** - **** </li>
+                    <li>이메일 : psj9102@naver.com </li>
+                    <li>블로그 : <a href="http://blog.naver.com/psj9102" target="_blank">http://blog.naver.com/psj9102</a> </li>
+                </ul>
+            </div>
+            <div v-else-if="show == '2'">
+                
+            </div>
+            <div v-else-if="show == '3'">
+                
+            </div>
+            <div v-else="show == '4'">
+                
+            </div>
+        </div>
+
+	</div>
     </body>
+	<script>
+
+        const Home = {template:"<div class='head' >Home</div>"};
+        const About = {template:"<div class='head' >About</div>"};
+        const Project = {template : "<div class='head' >Project</div>"};
+        const Knowledge = {template : "<div class='head' >Knowledge</div>"};
+
+        const routes = [
+            {path:'/home', component:Home},
+            {path:'/about', component:About},
+            {path:'/project', component:Project},
+            {path:'/knowledge', component:Knowledge} 
+        ]
+
+        const router = new VueRouter({
+            routes
+        })
+	
+		var app = new Vue({
+			el:"#app",
+            data:{
+                show : ""
+            },
+            router:router,
+            methods:{
+                changeView : function(no){
+                    this.show = no
+                }
+            }
+		})
+
+       
+	</script>
 </html>
